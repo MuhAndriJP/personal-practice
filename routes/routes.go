@@ -11,7 +11,8 @@ func New() *echo.Echo {
 
 	e := echo.New()
 
-	e.POST("/api/users", handler.NewRegisterUser().Handle)
+	e.POST("/api/users/register", handler.NewRegisterUser().Handle)
+	e.POST("/api/users/login", handler.NewLoginUser().Handle)
 
 	// Google
 	// e.GET("/api/google", google.NewGoogleAuth().HandleGoogleLogin)

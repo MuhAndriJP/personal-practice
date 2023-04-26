@@ -6,6 +6,7 @@ option go_package = "./user";
 
 service User {
     rpc RegisterUser(RegisterUserRequest) returns (NoResponse);
+    rpc LoginUser(LoginUserRequest) returns (LoginUserResponse);
 }
 
 message RegisterUserRequest {
@@ -15,4 +16,15 @@ message RegisterUserRequest {
 }
 
 message NoResponse {
+}
+
+message LoginUserRequest {
+    string email = 1;
+    string password = 2;
+}
+
+message LoginUserResponse {
+    string name = 1;
+    string email = 2;
+    string token = 3;
 }
