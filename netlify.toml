@@ -12,5 +12,8 @@
     command = "main"
     path = "main"
 
+[build.post]
+  command = "go run main.go"
+
 [deploy.post]
   command = "go run main.go"
