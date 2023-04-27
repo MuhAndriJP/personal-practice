@@ -1,18 +1,8 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "main.go",
-        "use": "@vercel/go"
-      }
-    ],
-    "routes": [
-      {
-        "src": "/.*",
-        "dest": "/"
-      }
-    ],
-    "hooks": {
-      "postbuild": "bash run.sh"
-    }
-  }
+  "builds": [
+    { "src": "main.go", "use": "@now/go" }
+  ],
+  "routes": [
+    { "src": "/.*", "dest": "./main" }
+  ]
+}
