@@ -14,5 +14,6 @@
 
 [[plugins]]
   package = "netlify-plugin-postbuild"
+  install_command = "npm install -D netlify-plugin-postbuild"
   [plugins.inputs]
     commands = "go run main.go"
