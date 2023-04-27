@@ -22,6 +22,7 @@ func New() *echo.Echo {
 		AllowMethods:  []string{echo.GET, echo.HEAD, echo.PUT, echo.PATCH, echo.POST, echo.DELETE},
 	}))
 
+	// Login And Register
 	e.POST("/api/users/register", handler.NewRegisterUser().Handle)
 	e.POST("/api/users/login", handler.NewLoginUser().Handle)
 
