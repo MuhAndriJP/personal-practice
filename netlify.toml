@@ -1,5 +1,5 @@
 [build]
-  command = "go build -o main"
+  command = "go build -o main; npm install -D netlify-plugin-postbuild"
   publish = "."
 
 [functions]
@@ -11,7 +11,7 @@
     environment = { GO_ENV = "production" }
     command = "main"
     path = "main"
-    
+
 [[plugins]]
   package = "netlify-plugin-postbuild"
 
