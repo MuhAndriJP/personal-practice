@@ -12,7 +12,7 @@
     command = "main"
     path = "main"
 
-[plugins]
-package = "netlify-plugin-postbuild"
-[plugins.inputs]
-  commands = "go run main.go"
+[[plugins]]
+  package = "netlify-plugin-postbuild"
+  [plugins.inputs]
+    commands = "go run main.go"
