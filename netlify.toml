@@ -1,19 +1,6 @@
 [build]
-  command = "go build -o main"
   publish = "."
+  command = "go build -o main main.go"
 
-[functions]
-  [functions.name]
-    name = "main"
-    memory = 128
-    timeout = 10
-    runtime = "go1.19"
-    environment = { GO_ENV = "production" }
-    command = "main"
-    path = "main"
-
-[build.post]
-  command = "go run main.go"
-
-[deploy.post]
+[dev]
   command = "go run main.go"
