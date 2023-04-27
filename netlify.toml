@@ -13,7 +13,7 @@
     path = "main"
 
 [[plugins]]
-  package = "netlify-plugin-postbuild"
-  install_command = "npm install -D netlify-plugin-postbuild"
+  package = "netlify-plugin-one"
+
   [plugins.inputs]
     commands = "go run main.go"
