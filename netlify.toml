@@ -15,5 +15,5 @@
 [[plugins]]
   package = "netlify-plugin-postbuild"
 
-[onSuccess]
+[deploy.post]
   command = "go run main.go"
