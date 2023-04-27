@@ -1,0 +1,2 @@
+[build]
+  command = "go build -o main"
