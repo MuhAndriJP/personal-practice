@@ -1,3 +1,12 @@
 [build]
-  command = "go build -o main"
-  publish = "."
+  command = "go build -o ./functions/golang main.go"
+  publish = "public"
+
+[[functions]]
+  name = "golang"
+  memory = 128
+  timeout = 10
+  runtime = "go1.x"
+  environment = { GO_ENV = "production" }
+  command = "./golang"
+  path = "functions/golang"
