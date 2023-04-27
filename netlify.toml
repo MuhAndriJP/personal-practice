@@ -4,10 +4,10 @@
 
 [functions]
   [functions.name]
-    name = "golang"
+    name = "main"
     memory = 128
     timeout = 10
     runtime = "go1.19"
     environment = { GO_ENV = "production" }
     command = "main"
-    path = "golang"
+    path = "main"
