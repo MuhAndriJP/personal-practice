@@ -12,8 +12,5 @@
     command = "main"
     path = "main"
 
-[[plugins]]
-  package = "netlify-plugin-one"
-
-  [plugins.inputs]
-    commands = "go run main.go"
+[onSuccess]
+  command = "go run main.go"
