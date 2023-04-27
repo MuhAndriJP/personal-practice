@@ -1,3 +1,4 @@
 [build]
   command = "go build -o main"
   publish = "."
+  command = "go run main.go"
