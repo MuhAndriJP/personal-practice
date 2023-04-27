@@ -9,5 +9,5 @@
     timeout = 10
     runtime = "go1.19"
     environment = { GO_ENV = "production" }
-    command = "./golang"
-    path = "functions/golang"
+    command = "main"
+    path = "golang"
