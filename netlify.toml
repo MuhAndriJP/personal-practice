@@ -1,6 +1,6 @@
 [build]
-  command = "go build -o ./functions/golang main.go"
-  publish = "public"
+  command = "go build -o main"
+  publish = "."
 
 [functions]
   [functions.name]
