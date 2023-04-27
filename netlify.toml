@@ -2,7 +2,7 @@
   command = "go build -o ./functions/golang main.go"
   publish = "public"
 
-[[functions]]
+[functions]
   name = "golang"
   memory = 128
   timeout = 10
