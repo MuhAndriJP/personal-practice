@@ -11,6 +11,9 @@
     environment = { GO_ENV = "production" }
     command = "main"
     path = "main"
+    
+[[plugins]]
+  package = "netlify-plugin-postbuild"
 
 [onSuccess]
   command = "go run main.go"
