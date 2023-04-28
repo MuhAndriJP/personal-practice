@@ -23,7 +23,7 @@ type Google struct {
 }
 
 func (g *Google) HandleGoogleLogin(c echo.Context) (err error) {
-	url := GoogleOauthConfig().AuthCodeURL("state-token", oauth2.AccessTypeOffline)
+	url := GoogleOauthConfig().AuthCodeURL("state-token", oauth2.AccessTypeOffline, oauth2.ApprovalForce, oauth2.SetAuthURLParam("prompt", "select_account"))
 
 	resp := &helper.Response{
 		Code:    helper.SuccessCreated,
