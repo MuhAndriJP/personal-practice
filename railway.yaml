@@ -1,6 +1,6 @@
 version: '1.0'
 engines:
   go:
-    build: ./cmd/server
-    run: go run ./cmd/server
+    build: main
+    run: go run main
     
