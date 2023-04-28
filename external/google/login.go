@@ -23,19 +23,12 @@ type Google struct {
 }
 
 func (g *Google) HandleGoogleLogin(c echo.Context) (err error) {
-	url := GoogleOauthConfig().AuthCodeURL("state-token", oauth2.AccessTypeOffline, oauth2.ApprovalForce, oauth2.SetAuthURLParam("prompt", "select_account"))
+	url := GoogleOauthConfig().AuthCodeURL("state-token",
+		oauth2.AccessTypeOffline,
+		oauth2.ApprovalForce,
+		oauth2.SetAuthURLParam("prompt", "select_account"))
 
-	resp := &helper.Response{
-		Code:    helper.SuccessCreated,
-		Message: helper.StatusMessage[helper.SuccessCreated],
-		Data: map[string]interface{}{
-			"message": http.StatusTemporaryRedirect,
-			"data":    url,
-		},
-	}
-
-	return c.JSON(helper.HTTPStatusFromCode(helper.Success), resp)
-	// return c.Redirect(http.StatusTemporaryRedirect, url)
+	return c.Redirect(http.StatusTemporaryRedirect, url)
 }
 
 func (g *Google) HandleGoogleCallback(c echo.Context) (err error) {
