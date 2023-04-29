@@ -2,18 +2,14 @@ package google
 
 import (
 	"context"
-	"encoding/json"
-	"fmt"
+	"log"
 	"net/http"
-	"os"
 
-	pb "github.com/MuhAndriJP/gateway-service.git/grpc/user"
 	"github.com/MuhAndriJP/gateway-service.git/helper"
 	"golang.org/x/oauth2"
 	userInfo "google.golang.org/api/oauth2/v2"
 	"google.golang.org/api/option"
 
-	"github.com/MuhAndriJP/gateway-service.git/entity"
 	"github.com/MuhAndriJP/gateway-service.git/grpc/user/client"
 	"github.com/labstack/echo/v4"
 )
@@ -28,6 +24,7 @@ func (g *Google) HandleGoogleLogin(c echo.Context) (err error) {
 		oauth2.ApprovalForce,
 		oauth2.SetAuthURLParam("prompt", "select_account"))
 
+	log.Println("Redirect URL Google Auth", url)
 	return c.Redirect(http.StatusTemporaryRedirect, url)
 }
 
@@ -44,52 +41,47 @@ func (g *Google) HandleGoogleCallback(c echo.Context) (err error) {
 	}
 
 	client := GoogleOauthConfig().Client(ctx, token)
-	userInfo, err := client.Get(os.Getenv("GCP_USER_INFO"))
+	userInfo, err := getUserInfo(ctx, client)
 	if err != nil {
-		c.String(http.StatusInternalServerError, fmt.Sprintf("Error: %s", err.Error()))
-		return
-	}
-	defer userInfo.Body.Close()
-
-	user := &entity.Users{}
-	if err = json.NewDecoder(userInfo.Body).Decode(&user); err != nil {
-		c.String(http.StatusInternalServerError, fmt.Sprintf("Error: %s", err.Error()))
-		return
+		return err
 	}
 
-	if user.Email == "" {
-		userInfo, err := getUserInfo(ctx, client)
-		if err != nil {
-			return err
-		}
+	// CHECK DB IF USER STORED TO DB
+	// userDB, err := g.user.GetUserByEmail(ctx, &pb.GetUserByEmailRequest{Email: userInfo.Email})
+	// if err != nil {
+	// 	return
+	// }
 
-		req := pb.RegisterUserRequest{
-			Name:  userInfo.Name,
-			Email: userInfo.Email,
-			Token: token.AccessToken,
-		}
-		bytes, _ := json.Marshal(user)
-		_ = json.Unmarshal(bytes, &req)
+	// if userDB.Email == "" {
+	// 	req := pb.RegisterUserRequest{
+	// 		Name:  userInfo.Name,
+	// 		Email: userInfo.Email,
+	// 		Token: token.AccessToken,
+	// 	}
+	// 	bytes, _ := json.Marshal(userInfo)
+	// 	_ = json.Unmarshal(bytes, &req)
 
-		_, err = g.user.RegisterUser(ctx, &req)
-		if err != nil {
-			return err
-		}
+	// 	_, err = g.user.RegisterUser(ctx, &req)
+	// 	if err != nil {
+	// 		return err
+	// 	}
 
-		resp := &helper.Response{
-			Code:    helper.SuccessNoContent,
-			Message: helper.StatusMessage[helper.SuccessNoContent],
-			Data: map[string]interface{}{
-				"token": token.AccessToken,
-			},
-		}
+	// 	log.Println("Google Auth Register", &req)
+	// 	resp := &helper.Response{
+	// 		Code:    helper.SuccessCreated,
+	// 		Message: helper.StatusMessage[helper.SuccessCreated],
+	// 		Data: map[string]interface{}{
+	// 			"token": token.AccessToken,
+	// 		},
+	// 	}
 
-		return c.JSON(helper.HTTPStatusFromCode(helper.Success), resp)
-	}
+	// 	return c.JSON(helper.HTTPStatusFromCode(helper.SuccessCreated), resp)
+	// }
 
+	log.Println("Google Auth Login", userInfo)
 	resp := &helper.Response{
-		Code:    helper.SuccessCreated,
-		Message: helper.StatusMessage[helper.SuccessCreated],
+		Code:    helper.Success,
+		Message: helper.StatusMessage[helper.Success],
 		Data: map[string]interface{}{
 			"token": token.AccessToken,
 		},

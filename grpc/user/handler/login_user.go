@@ -3,6 +3,7 @@ package handler
 import (
 	"context"
 	"encoding/json"
+	"log"
 
 	"github.com/MuhAndriJP/gateway-service.git/entity"
 	pb "github.com/MuhAndriJP/gateway-service.git/grpc/user"
@@ -31,6 +32,7 @@ func (u *LoginUser) Handle(c echo.Context) (err error) {
 	bytes, _ := json.Marshal(&r)
 	_ = json.Unmarshal(bytes, &req)
 
+	log.Println("Login User Request", &req)
 	res, err := u.client.LoginUser(ctx, &req)
 	if err != nil {
 		return
