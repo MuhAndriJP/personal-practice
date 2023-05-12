@@ -15,7 +15,7 @@ func InitDB() {
 	usernameAndPassword := os.Getenv("db_user") + ":" + os.Getenv("db_password")
 	hostName := "tcp(" + os.Getenv("db_host") + ":" + os.Getenv("db_port") + ")"
 	urlConnection := usernameAndPassword + "@" + hostName + "/" + os.Getenv("db_database") + "?charset=utf8&parseTime=true&loc=UTC"
-	if os.Getenv("app_env") == "prod" {
+	if os.Getenv("APP_ENV") == "prod" {
 		urlConnection += "&tls=true"
 	}
 
