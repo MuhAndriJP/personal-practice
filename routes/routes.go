@@ -3,10 +3,10 @@ package routes
 import (
 	// "project_altabe4_1/external/google"
 
-	"github.com/MuhAndriJP/gateway-service.git/external/google"
-	"github.com/MuhAndriJP/gateway-service.git/external/xendit"
-	"github.com/MuhAndriJP/gateway-service.git/grpc/user/handler"
-	"github.com/MuhAndriJP/gateway-service.git/web"
+	"github.com/MuhAndriJP/personal-practice.git/external/google"
+	"github.com/MuhAndriJP/personal-practice.git/external/xendit"
+	"github.com/MuhAndriJP/personal-practice.git/handler/user"
+	"github.com/MuhAndriJP/personal-practice.git/web"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -34,8 +34,8 @@ func New() *echo.Echo {
 
 	g := e.Group("api")
 	// Login And Register
-	g.POST("/users/register", handler.NewRegisterUser().Handle)
-	g.POST("/users/login", handler.NewLoginUser().Handle)
+	g.POST("/users/register", user.NewUserRegister().Handle)
+	g.POST("/users/login", user.NewUserLogin().Handle)
 
 	// Google
 	g.GET("/google", google.NewGoogleAuth().HandleGoogleLogin)

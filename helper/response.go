@@ -74,7 +74,6 @@ var StatusMessage = map[codes.Code]string{
 	ResourceExhausted:    "Sudah mencapai batas limit",
 	InvalidSubdomain:     "Nama Toko kamu salah",
 	InactiveSubdomain:    "Toko belum diaktifkan",
-	SuspendedSubdomain:   "Toko kamu diblokir, silahkan hubungi Qasir melalui email hello@qasir.id",
 	InvalidTransaction:   "Data transaksi tidak valid atau tidak sesuai",
 	DuplicateTransaction: "Data transaksi duplikat",
 	InternalError:        "Error dari server",

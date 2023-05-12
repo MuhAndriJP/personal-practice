@@ -4,7 +4,7 @@ import (
 	"context"
 	"os"
 
-	"github.com/MuhAndriJP/gateway-service.git/helper"
+	"github.com/MuhAndriJP/personal-practice.git/helper"
 	"github.com/xendit/xendit-go"
 	"github.com/xendit/xendit-go/ewallet"
 )

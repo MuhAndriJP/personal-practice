@@ -5,17 +5,15 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/MuhAndriJP/gateway-service.git/helper"
+	"github.com/MuhAndriJP/personal-practice.git/helper"
 	"golang.org/x/oauth2"
 	userInfo "google.golang.org/api/oauth2/v2"
 	"google.golang.org/api/option"
 
-	"github.com/MuhAndriJP/gateway-service.git/grpc/user/client"
 	"github.com/labstack/echo/v4"
 )
 
 type Google struct {
-	user client.Client
 }
 
 func (g *Google) HandleGoogleLogin(c echo.Context) (err error) {
