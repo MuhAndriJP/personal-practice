@@ -35,6 +35,8 @@ func (u *LoginUser) Handle(c echo.Context) (err error) {
 	log.Println("Login User Request", &req)
 	res, err := u.client.LoginUser(ctx, &req)
 	if err != nil {
+		log.Println("[ERROR] Login User", err)
+
 		return
 	}
 

@@ -4,6 +4,7 @@ import (
 	// "project_altabe4_1/external/google"
 
 	"github.com/MuhAndriJP/gateway-service.git/external/google"
+	"github.com/MuhAndriJP/gateway-service.git/external/xendit"
 	"github.com/MuhAndriJP/gateway-service.git/grpc/user/handler"
 	"github.com/MuhAndriJP/gateway-service.git/web"
 	"github.com/labstack/echo/v4"
@@ -13,7 +14,6 @@ import (
 func New() *echo.Echo {
 	e := echo.New()
 	e.Use(middleware.RequestID())
-	e.Use(middleware.Logger())
 	e.Use(middleware.RemoveTrailingSlash())
 	e.Use(middleware.Recover())
 	e.Use(middleware.Gzip())
@@ -32,13 +32,19 @@ func New() *echo.Echo {
 	e.GET("/register", web.RegisterHandler)
 	e.GET("/login", web.LoginHandler)
 
+	g := e.Group("api")
 	// Login And Register
-	e.POST("/api/users/register", handler.NewRegisterUser().Handle)
-	e.POST("/api/users/login", handler.NewLoginUser().Handle)
+	g.POST("/users/register", handler.NewRegisterUser().Handle)
+	g.POST("/users/login", handler.NewLoginUser().Handle)
 
 	// Google
-	e.GET("/api/google", google.NewGoogleAuth().HandleGoogleLogin)
-	e.GET("/api/UserOauth", google.NewGoogleAuth().HandleGoogleCallback)
+	g.GET("/google", google.NewGoogleAuth().HandleGoogleLogin)
+	g.GET("/UserOauth", google.NewGoogleAuth().HandleGoogleCallback)
+
+	// Xendit
+	g.POST("/xendit/ewallet/charge", xendit.CreateEWalletCharge)
+	g.GET("/xendit/ewallet/status/:id", xendit.GetEWalletChargeStatus)
+	g.POST("/xendit/ewallet/callback", xendit.CreateEWalletCallback)
 
 	return e
 }

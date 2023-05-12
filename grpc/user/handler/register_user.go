@@ -35,6 +35,7 @@ func (u *RegisterUser) Handle(c echo.Context) (err error) {
 	log.Println("Register User Request", &req)
 	_, err = u.client.RegisterUser(ctx, &req)
 	if err != nil {
+		log.Println("[ERROR] Register User", err)
 		return
 	}
 
