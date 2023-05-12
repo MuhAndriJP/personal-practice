@@ -24,10 +24,17 @@ func (u *UserLogin) Handle(c echo.Context) (err error) {
 		return
 	}
 
-	log.Println("Register User Request", &req)
+	log.Println("Register User Request", req)
 	res, err := user.NewUserLogin().Handle(ctx, req)
 	if err != nil {
-		return
+		log.Println("[ERROR] User Login:", err)
+		return c.JSON(helper.HTTPStatusFromCode(helper.InvalidArgument), &helper.Response{
+			Code:    helper.InvalidArgument,
+			Message: helper.StatusMessage[helper.InvalidArgument],
+			Data: map[string]interface{}{
+				"error": err.Error(),
+			},
+		})
 	}
 
 	resp := &helper.Response{

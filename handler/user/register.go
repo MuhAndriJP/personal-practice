@@ -27,7 +27,14 @@ func (u *UserRegister) Handle(c echo.Context) (err error) {
 	log.Println("Register User Request", req)
 	err = user.NewUserRegister().Handle(ctx, req)
 	if err != nil {
-		return
+		log.Println("[ERROR] User Register:", err)
+		return c.JSON(helper.HTTPStatusFromCode(helper.InvalidArgument), &helper.Response{
+			Code:    helper.InvalidArgument,
+			Message: helper.StatusMessage[helper.InvalidArgument],
+			Data: map[string]interface{}{
+				"error": err.Error(),
+			},
+		})
 	}
 
 	resp := &helper.Response{

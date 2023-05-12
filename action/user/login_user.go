@@ -2,8 +2,10 @@ package user
 
 import (
 	"context"
+	"errors"
 
 	"github.com/MuhAndriJP/personal-practice.git/entity"
+	"github.com/MuhAndriJP/personal-practice.git/helper"
 	"github.com/MuhAndriJP/personal-practice.git/middleware"
 	"github.com/MuhAndriJP/personal-practice.git/repo/mysql"
 	"golang.org/x/crypto/bcrypt"
@@ -15,19 +17,23 @@ type UserLogin struct {
 
 func (u *UserLogin) Handle(ctx context.Context, req *entity.Users) (res entity.Users, err error) {
 	user, err := u.uRepo.GetUserByEmail(ctx, req.Email)
-	if err != nil || user == (entity.Users{}) {
-		return
-	}
-
-	errComparePass := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(req.Password))
-	if errComparePass != nil {
-		err = errComparePass
-		return
-	}
-
-	token, errCreateToken := middleware.CreateToken(int(user.ID))
 	if err != nil {
-		err = errCreateToken
+		return
+	}
+
+	if user == (entity.Users{}) {
+		err = errors.New(helper.StatusMessage[helper.NotFound])
+		return
+	}
+
+	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(req.Password))
+	if err != nil {
+		err = errors.New(helper.StatusMessage[helper.Unauthorized])
+		return
+	}
+
+	token, err := middleware.CreateToken(int(user.ID))
+	if err != nil {
 		return
 	}
 

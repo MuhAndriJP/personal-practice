@@ -5,6 +5,11 @@ import (
 	"time"
 )
 
+const (
+	EmptyEmail    = "Email Tidak Boleh Kosong"
+	EmptyPassword = "Password Tidak Boleh Kosong"
+)
+
 func RandomString(length int) string {
 	const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 	rand.Seed(time.Now().UnixNano())

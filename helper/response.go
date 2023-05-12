@@ -38,13 +38,6 @@ const (
 	// ResourceExhausted status
 	ResourceExhausted codes.Code = 414
 
-	// InvalidSubdomain status
-	InvalidSubdomain codes.Code = 420
-	// InactiveSubdomain status
-	InactiveSubdomain codes.Code = 421
-	// SuspendedSubdomain status
-	SuspendedSubdomain codes.Code = 422
-
 	// InvalidTransaction status
 	InvalidTransaction codes.Code = 430
 	// DuplicateTransaction status
@@ -60,9 +53,9 @@ const (
 var StatusMessage = map[codes.Code]string{
 	Success:              "Berhasil",
 	SuccessCreated:       "Berhasil, Data Tersimpan",
-	SuccessNoContent:     "Berhasil, Data tidak ditemukan",
+	SuccessNoContent:     "Berhasil, Tanpa Konten",
 	InvalidArgument:      "Parameter tidak valid",
-	Unauthorized:         "Username atau password kamu salah",
+	Unauthorized:         "Password kamu salah",
 	Forbidden:            "Akses tidak dibolehkan atau kamu tidak memiliki akses",
 	NotFound:             "Data tidak ditemukan",
 	Cancelled:            "Permintaan dibatalkan",
@@ -72,8 +65,6 @@ var StatusMessage = map[codes.Code]string{
 	InvalidAPIKey:        "API key tidak valid",
 	InvalidSession:       "Sesi tidak valid atau sudah berakhir",
 	ResourceExhausted:    "Sudah mencapai batas limit",
-	InvalidSubdomain:     "Nama Toko kamu salah",
-	InactiveSubdomain:    "Toko belum diaktifkan",
 	InvalidTransaction:   "Data transaksi tidak valid atau tidak sesuai",
 	DuplicateTransaction: "Data transaksi duplikat",
 	InternalError:        "Error dari server",
@@ -110,12 +101,6 @@ func HTTPStatusFromCode(c codes.Code) int {
 		return http.StatusUnauthorized
 	case ResourceExhausted:
 		return http.StatusTooManyRequests
-	case InvalidSubdomain:
-		return http.StatusNotFound
-	case InactiveSubdomain:
-		return http.StatusNotFound
-	case SuspendedSubdomain:
-		return http.StatusForbidden
 	case InvalidTransaction:
 		return http.StatusBadRequest
 	case DuplicateTransaction:
