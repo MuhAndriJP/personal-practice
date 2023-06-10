@@ -6,6 +6,7 @@ import (
 	"github.com/MuhAndriJP/personal-practice.git/external/google"
 	"github.com/MuhAndriJP/personal-practice.git/external/mail"
 	"github.com/MuhAndriJP/personal-practice.git/external/xendit"
+	"github.com/MuhAndriJP/personal-practice.git/handler/upload"
 	"github.com/MuhAndriJP/personal-practice.git/handler/user"
 	"github.com/MuhAndriJP/personal-practice.git/web"
 	"github.com/labstack/echo/v4"
@@ -49,6 +50,9 @@ func New() *echo.Echo {
 
 	// Mail
 	g.POST("/mail/send", mail.Handle)
+
+	// Upload
+	g.POST("/upload", upload.Handle)
 
 	return e
 }
