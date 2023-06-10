@@ -8,7 +8,6 @@ import (
 	"github.com/MuhAndriJP/personal-practice.git/helper"
 	"github.com/MuhAndriJP/personal-practice.git/middleware"
 	"github.com/MuhAndriJP/personal-practice.git/repo/mysql"
-	"golang.org/x/crypto/bcrypt"
 )
 
 type UserLogin struct {
@@ -26,7 +25,7 @@ func (u *UserLogin) Handle(ctx context.Context, req *entity.Users) (res entity.U
 		return
 	}
 
-	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(req.Password))
+	err = helper.CheckPassword(user.Password, req.Password)
 	if err != nil {
 		err = errors.New(helper.StatusMessage[helper.Unauthorized])
 		return

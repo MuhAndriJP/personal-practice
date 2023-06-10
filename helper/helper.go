@@ -3,6 +3,8 @@ package helper
 import (
 	"math/rand"
 	"time"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
 const (
@@ -18,4 +20,10 @@ func RandomString(length int) string {
 		b[i] = charset[rand.Intn(len(charset))]
 	}
 	return string(b)
+}
+
+func CheckPassword(Existing, Incoming string) error {
+	hash := []byte(Existing)
+	Password := []byte(Incoming)
+	return bcrypt.CompareHashAndPassword(hash, Password)
 }
