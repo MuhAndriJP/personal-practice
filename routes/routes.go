@@ -4,6 +4,7 @@ import (
 	// "project_altabe4_1/external/google"
 
 	"github.com/MuhAndriJP/personal-practice.git/external/google"
+	"github.com/MuhAndriJP/personal-practice.git/external/mail"
 	"github.com/MuhAndriJP/personal-practice.git/external/xendit"
 	"github.com/MuhAndriJP/personal-practice.git/handler/user"
 	"github.com/MuhAndriJP/personal-practice.git/web"
@@ -45,6 +46,9 @@ func New() *echo.Echo {
 	g.POST("/xendit/ewallet/charge", xendit.CreateEWalletCharge)
 	g.GET("/xendit/ewallet/status/:id", xendit.GetEWalletChargeStatus)
 	g.POST("/xendit/ewallet/callback", xendit.CreateEWalletCallback)
+
+	// Mail
+	g.POST("/mail/send", mail.Handle)
 
 	return e
 }

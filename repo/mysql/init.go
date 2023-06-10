@@ -12,10 +12,10 @@ import (
 var DB *gorm.DB
 
 func InitDB() {
-	usernameAndPassword := os.Getenv("db_user") + ":" + os.Getenv("db_password")
-	hostName := "tcp(" + os.Getenv("db_host") + ":" + os.Getenv("db_port") + ")"
-	urlConnection := usernameAndPassword + "@" + hostName + "/" + os.Getenv("db_database") + "?charset=utf8&parseTime=true&loc=UTC"
-	if os.Getenv("APP_ENV") == "prod" {
+	usernameAndPassword := os.Getenv("MYSQL_USER") + ":" + os.Getenv("MYSQL_PASSWORD")
+	hostName := "tcp(" + os.Getenv("MYSQL_HOST") + ":" + os.Getenv("MYSQL_PORT") + ")"
+	urlConnection := usernameAndPassword + "@" + hostName + "/" + os.Getenv("MYSQL_DATABASE") + "?charset=utf8&parseTime=true&loc=UTC"
+	if os.Getenv("APP_ENV") == "PROD" {
 		urlConnection += "&tls=true"
 	}
 
