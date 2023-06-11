@@ -37,15 +37,13 @@ func (u *UserLogin) Handle(c echo.Context) (err error) {
 		})
 	}
 
-	resp := &helper.Response{
+	return c.JSON(helper.HTTPStatusFromCode(helper.Success), &helper.Response{
 		Code:    helper.SuccessCreated,
 		Message: helper.StatusMessage[helper.SuccessCreated],
 		Data: map[string]interface{}{
 			"data": res,
 		},
-	}
-
-	return c.JSON(helper.HTTPStatusFromCode(helper.Success), resp)
+	})
 }
 
 func NewUserLogin() *UserLogin {

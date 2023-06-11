@@ -5,7 +5,7 @@ import (
 
 	"github.com/MuhAndriJP/personal-practice.git/external/google"
 	"github.com/MuhAndriJP/personal-practice.git/external/mail"
-	"github.com/MuhAndriJP/personal-practice.git/external/xendit"
+	"github.com/MuhAndriJP/personal-practice.git/external/xendit/ewallet"
 	"github.com/MuhAndriJP/personal-practice.git/handler/upload"
 	"github.com/MuhAndriJP/personal-practice.git/handler/user"
 	"github.com/MuhAndriJP/personal-practice.git/web"
@@ -44,15 +44,15 @@ func New() *echo.Echo {
 	g.GET("/UserOauth", google.NewGoogleAuth().HandleGoogleCallback)
 
 	// Xendit
-	g.POST("/xendit/ewallet/charge", xendit.CreateEWalletCharge)
-	g.GET("/xendit/ewallet/status/:id", xendit.GetEWalletChargeStatus)
-	g.POST("/xendit/ewallet/callback", xendit.CreateEWalletCallback)
+	g.POST("/xendit/ewallet/charge", ewallet.NewEwalletCharge().CreateEWalletCharge)
+	g.GET("/xendit/ewallet/status/:id", ewallet.NewEwalletChargeStatus().GetEWalletChargeStatus)
+	g.POST("/xendit/ewallet/callback", ewallet.NewEWalletCallback().CreateEWalletCallback)
 
 	// Mail
-	g.POST("/mail/send", mail.Handle)
+	g.POST("/mail/send", mail.NewMail().Handle)
 
 	// Upload
-	g.POST("/upload", upload.Handle)
+	g.POST("/upload", upload.NewUpload().Handle)
 
 	return e
 }

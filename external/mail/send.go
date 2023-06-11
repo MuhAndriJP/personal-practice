@@ -7,7 +7,7 @@ import (
 )
 
 type IGoMail interface {
-	Send(context.Context, *Mail) error
+	Send(context.Context, *MailRequest) error
 }
 
 type GoMail struct {
@@ -17,7 +17,7 @@ func NewGoMail() IGoMail {
 	return GoMail{}
 }
 
-func (gm GoMail) Send(ctx context.Context, req *Mail) (err error) {
+func (gm GoMail) Send(ctx context.Context, req *MailRequest) (err error) {
 	gomailer := gomail.NewMessage()
 	gomailer.SetHeader(FROM, SENDER_NAME)
 	gomailer.SetHeader(TO, req.Recipient)

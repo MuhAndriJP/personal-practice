@@ -77,15 +77,13 @@ func (g *Google) HandleGoogleCallback(c echo.Context) (err error) {
 	// }
 
 	log.Println("Google Auth Login", userInfo)
-	resp := &helper.Response{
+	return c.JSON(helper.HTTPStatusFromCode(helper.Success), &helper.Response{
 		Code:    helper.Success,
 		Message: helper.StatusMessage[helper.Success],
 		Data: map[string]interface{}{
 			"token": token.AccessToken,
 		},
-	}
-
-	return c.JSON(helper.HTTPStatusFromCode(helper.Success), resp)
+	})
 }
 
 func getUserInfo(ctx context.Context, client *http.Client) (*userInfo.Userinfo, error) {

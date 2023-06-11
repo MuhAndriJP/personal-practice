@@ -37,12 +37,10 @@ func (u *UserRegister) Handle(c echo.Context) (err error) {
 		})
 	}
 
-	resp := &helper.Response{
+	return c.JSON(helper.HTTPStatusFromCode(helper.Success), &helper.Response{
 		Code:    helper.SuccessCreated,
 		Message: helper.StatusMessage[helper.SuccessCreated],
-	}
-
-	return c.JSON(helper.HTTPStatusFromCode(helper.Success), resp)
+	})
 }
 
 func NewUserRegister() *UserRegister {

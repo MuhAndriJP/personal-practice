@@ -11,7 +11,7 @@ import (
 )
 
 type UserLogin struct {
-	uRepo mysql.MySQL
+	uRepo mysql.IUser
 }
 
 func (u *UserLogin) Handle(ctx context.Context, req *entity.Users) (res entity.Users, err error) {

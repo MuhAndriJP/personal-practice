@@ -21,7 +21,7 @@ var (
 	SUBJECT_EMAIL = "Subject Email"
 )
 
-type Mail struct {
+type MailRequest struct {
 	Recipient string `json:"recipient"`
 	Body      string `json:"body"`
 	CC        string `json:"cc"`

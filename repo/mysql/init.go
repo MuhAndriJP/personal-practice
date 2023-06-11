@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/MuhAndriJP/personal-practice.git/entity"
+	xendit "github.com/MuhAndriJP/personal-practice.git/entity/xendit"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -32,4 +33,5 @@ func InitDB() {
 func InitMigrate() {
 	// DB.Migrator().DropTable(&entity.Users{})
 	DB.AutoMigrate(&entity.Users{})
+	DB.AutoMigrate(&xendit.EWalletPayment{})
 }

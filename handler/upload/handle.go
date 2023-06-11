@@ -8,7 +8,9 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func Handle(c echo.Context) error {
+type Upload struct{}
+
+func (u *Upload) Handle(c echo.Context) error {
 	errors := []string{}
 	file, err := c.FormFile("file")
 	if err != nil {
@@ -51,4 +53,8 @@ func Handle(c echo.Context) error {
 		Code:    helper.SuccessCreated,
 		Message: helper.StatusMessage[helper.SuccessCreated],
 	})
+}
+
+func NewUpload() *Upload {
+	return &Upload{}
 }
