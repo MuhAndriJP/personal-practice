@@ -23,7 +23,7 @@ func (u *Upload) Handle(c echo.Context) error {
 	}
 	defer src.Close()
 
-	// fileByte, _ := ioutil.ReadAll(src)
+	// fileByte, _ := io.ReadAll(src)
 	// fileType := http.DetectContentType(fileByte)
 
 	dstPath := "./handler/upload/file/" + file.Filename

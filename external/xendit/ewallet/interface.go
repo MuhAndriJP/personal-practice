@@ -21,7 +21,7 @@ type Xendit struct {
 	mysql mysql.IEWallet
 }
 
-func NewXendit() IXendit {
+func NewXenditEwallet() IXendit {
 	return &Xendit{
 		mysql: mysql.NewEWallet(),
 	}

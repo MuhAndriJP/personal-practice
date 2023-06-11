@@ -26,10 +26,10 @@ func (e *EWalletChargeStatus) GetEWalletChargeStatus(c echo.Context) error {
 	r.ChargeID = chargeID
 
 	log.Println("Get EWallet Charge Status Request", r)
-	res, err := NewXendit().GetEWalletChargeStatus(ctx, r)
+	res, err := NewXenditEwallet().GetEWalletChargeStatus(ctx, r)
 	if err != nil {
 		log.Println("Error Create EWallet Charge", err)
-		return c.JSON(helper.HTTPStatusFromCode(helper.Success), &helper.Response{
+		return c.JSON(helper.HTTPStatusFromCode(helper.InvalidArgument), &helper.Response{
 			Code:    helper.InvalidArgument,
 			Message: helper.StatusMessage[helper.InvalidArgument],
 		})

@@ -4,6 +4,7 @@ import (
 	"context"
 	"log"
 
+	"github.com/MuhAndriJP/personal-practice.git/helper"
 	"github.com/labstack/echo/v4"
 )
 
@@ -24,13 +25,15 @@ func (m *Mail) Handle(c echo.Context) error {
 	err := NewGoMail().Send(ctx, r)
 	if err != nil {
 		log.Println("Error Send Email", err)
-		return c.JSON(400, map[string]interface{}{
-			"error": "Failed send email",
+		return c.JSON(helper.HTTPStatusFromCode(helper.InvalidArgument), &helper.Response{
+			Code:    helper.InvalidArgument,
+			Message: helper.StatusMessage[helper.InvalidArgument],
 		})
 	}
 
-	return c.JSON(201, map[string]interface{}{
-		"data": "Succes send email",
+	return c.JSON(helper.HTTPStatusFromCode(helper.Success), &helper.Response{
+		Code:    helper.SuccessCreated,
+		Message: helper.StatusMessage[helper.SuccessCreated],
 	})
 }
 

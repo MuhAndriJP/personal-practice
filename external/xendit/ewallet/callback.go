@@ -24,10 +24,10 @@ func (e *EWalletCallback) CreateEWalletCallback(c echo.Context) error {
 	}
 
 	log.Println("Create Callback Request", r)
-	err := NewXendit().CreateEWalletCallback(ctx, r)
+	err := NewXenditEwallet().CreateEWalletCallback(ctx, r)
 	if err != nil {
 		log.Println("Error Create EWallet Callback", err)
-		return c.JSON(helper.HTTPStatusFromCode(helper.Success), &helper.Response{
+		return c.JSON(helper.HTTPStatusFromCode(helper.InvalidArgument), &helper.Response{
 			Code:    helper.InvalidArgument,
 			Message: helper.StatusMessage[helper.InvalidArgument],
 		})

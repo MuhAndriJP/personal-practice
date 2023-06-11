@@ -1,4 +1,4 @@
-package ewallet
+package bank_transfer
 
 import (
 	"context"
@@ -9,23 +9,23 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type EWalletCharge struct{}
+type CreateInvoice struct{}
 
-func (e *EWalletCharge) CreateEWalletCharge(c echo.Context) error {
+func (e *CreateInvoice) CreateEWalletCharge(c echo.Context) error {
 	ctx := c.Request().Context()
 	if ctx == nil {
 		ctx = context.Background()
 	}
 
-	r := new(entity.CreateEWalletChargeRequest)
+	r := new(entity.CreateInvoiceRequest)
 	if err := c.Bind(r); err != nil {
 		return err
 	}
 
-	log.Println("Create EWallet Charge Request", r)
-	res, err := NewXenditEwallet().CreateEWalletCharge(ctx, r)
+	log.Println("Create Invoice Request", r)
+	res, err := NewXenditBankTransfer().CreateInvoice(ctx, r)
 	if err != nil {
-		log.Println("Error Create EWallet Charge", err)
+		log.Println("Error Create Invoice", err)
 		return c.JSON(helper.HTTPStatusFromCode(helper.InvalidArgument), &helper.Response{
 			Code:    helper.InvalidArgument,
 			Message: helper.StatusMessage[helper.InvalidArgument],
@@ -41,6 +41,6 @@ func (e *EWalletCharge) CreateEWalletCharge(c echo.Context) error {
 	})
 }
 
-func NewEwalletCharge() *EWalletCharge {
-	return &EWalletCharge{}
+func NewCreateInvoice() *CreateInvoice {
+	return &CreateInvoice{}
 }

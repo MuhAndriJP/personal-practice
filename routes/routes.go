@@ -5,6 +5,7 @@ import (
 
 	"github.com/MuhAndriJP/personal-practice.git/external/google"
 	"github.com/MuhAndriJP/personal-practice.git/external/mail"
+	"github.com/MuhAndriJP/personal-practice.git/external/xendit/bank_transfer"
 	"github.com/MuhAndriJP/personal-practice.git/external/xendit/ewallet"
 	"github.com/MuhAndriJP/personal-practice.git/handler/upload"
 	"github.com/MuhAndriJP/personal-practice.git/handler/user"
@@ -47,6 +48,8 @@ func New() *echo.Echo {
 	g.POST("/xendit/ewallet/charge", ewallet.NewEwalletCharge().CreateEWalletCharge)
 	g.GET("/xendit/ewallet/status/:id", ewallet.NewEwalletChargeStatus().GetEWalletChargeStatus)
 	g.POST("/xendit/ewallet/callback", ewallet.NewEWalletCallback().CreateEWalletCallback)
+
+	g.POST("/xendit/bank-transfer/create", bank_transfer.NewCreateInvoice().CreateEWalletCharge)
 
 	// Mail
 	g.POST("/mail/send", mail.NewMail().Handle)
