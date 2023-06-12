@@ -2,6 +2,7 @@ package mail
 
 import (
 	"context"
+	"os"
 
 	"gopkg.in/gomail.v2"
 )
@@ -19,16 +20,15 @@ func NewGoMail() IGoMail {
 
 func (gm GoMail) Send(ctx context.Context, req *MailRequest) (err error) {
 	gomailer := gomail.NewMessage()
-	gomailer.SetHeader(FROM, SENDER_NAME)
-	gomailer.SetHeader(TO, req.Recipient)
-	gomailer.SetHeader(SUBJECT, SUBJECT_EMAIL)
+	gomailer.SetHeader(FROM, req.SenderName+" <"+os.Getenv("MAIL_SENDER")+">")
+	gomailer.SetHeader(TO, req.To)
+	gomailer.SetHeader(SUBJECT, req.Subject)
 	gomailer.SetBody(BODY_FORMAT, req.Body)
-	// gomailer.Attach("/filename.jpg")
+	if req.Attach != "" {
+		gomailer.Attach(req.Attach)
+	}
 
-	auth := LoginAuth(CONFIG_USERNAME, CONFIG_PASSWORD)
-
-	dialer := gomail.NewDialer(CONFIG_SMTP_HOST, CONFIG_SMTP_PORT, CONFIG_USERNAME, CONFIG_PASSWORD)
-	dialer.Auth = auth
+	dialer := gomail.NewDialer(CONFIG_SMTP_HOST, CONFIG_SMTP_PORT, CONFIG_EMAIL, CONFIG_PASSWORD)
 
 	return dialer.DialAndSend(gomailer)
 }
