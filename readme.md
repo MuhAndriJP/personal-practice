@@ -8,7 +8,7 @@ Develop full stack with Go
 - Implement JWT Authentication 
 - Encpryt Decrypt Password 
 - Upload File
-- Send Email
+- Send Email With Attachment
 - Make a Payment Gateway 
 - Docker 
 - Deployment Go and Database with separated server
