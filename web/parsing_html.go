@@ -19,3 +19,7 @@ func RegisterHandler(c echo.Context) error {
 func LoginHandler(c echo.Context) error {
 	return templates.ExecuteTemplate(c.Response().Writer, "login.html", nil)
 }
+
+func SpeakHandler(c echo.Context) error {
+	return templates.ExecuteTemplate(c.Response().Writer, "speak.html", nil)
+}

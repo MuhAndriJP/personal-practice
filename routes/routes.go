@@ -34,6 +34,7 @@ func New() *echo.Echo {
 	e.GET("/index", web.IndexHandler)
 	e.GET("/register", web.RegisterHandler)
 	e.GET("/login", web.LoginHandler)
+	e.GET("/speak", web.SpeakHandler)
 
 	g := e.Group("api")
 	// Login And Register
